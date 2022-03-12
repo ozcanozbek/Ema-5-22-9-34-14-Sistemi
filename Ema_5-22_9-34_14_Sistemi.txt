@@ -1,6 +1,6 @@
 //O2can O2bek (Özcan Özbek)
 //@version=5
-indicator(title='Ema 5/22 9/34 14 Sistemi - V1.3', shorttitle='Ema 5/22 9/34 14 Sistemi - V1.3', overlay=true, timeframe="")
+indicator(title='Ema 5/22 9/34 14 Sistemi - V1.4', shorttitle='Ema 5/22 9/34 14 Sistemi', overlay=true, timeframe="")
 
 src = input(close, title='Source')
 
@@ -19,6 +19,9 @@ acPPST  = input(defval = false, title = 'Pivot Point Süper Trend Gösterilsin m
 
 acRsi14 = false
 //acRsi14 = input(defval = false, title = 'Rsi Sistemi Gösterilsin mi?')   
+
+acT3 = input(defval = false, title = 'Tillson Çizgisi Gösterilsin mi?')   
+acT3AlSat = input(defval = false, title = 'Tillson Al / Sat Gösterilsin mi?')   
 
 //Fibo Yatay Çizgileri
 len = input(defval = 150, title = 'Fibo Hesaplama Mum Sayısı') 
@@ -66,6 +69,32 @@ plot(line1618_2 and acFiboLines ? line1618_2 : na, title='-0.618', color=color.n
 plot(line2000_2 and acFiboLines ? line2000_2 : na, title='-1.000', color=color.new(color.red, 25), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
 plot(line2272_2 and acFiboLines ? line2272_2 : na, title='-1.272', color=color.new(color.red, 25), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
 
+
+//Tillson
+length1 = 3 //input(3, 'T3 Length')
+a1 = 0.5 //input(0.5, 'Volume Factor')
+
+e1 = ta.ema((high + low + 2 * close) / 4, length1)
+e2 = ta.ema(e1, length1)
+e3 = ta.ema(e2, length1)
+e4 = ta.ema(e3, length1)
+e5 = ta.ema(e4, length1)
+e6 = ta.ema(e5, length1)
+c1 = -a1 * a1 * a1
+c2 = 3 * a1 * a1 + 3 * a1 * a1 * a1
+c3 = -6 * a1 * a1 - 3 * a1 - 3 * a1 * a1 * a1
+c4 = 1 + 3 * a1 + a1 * a1 * a1 + 3 * a1 * a1
+T3 = c1 * e6 + c2 * e5 + c3 * e4 + c4 * e3
+
+col1 = T3 > T3[1]
+col3 = T3 < T3[1]
+color_1 = col1 ? color.lime : col3 ? color.red : color.yellow
+
+alertcondition(ta.cross(T3, T3[1]) and col1, title="T3 AL", message='T3 AL {{ticker}}, FİYAT={{close}}')
+alertcondition(ta.cross(T3, T3[1]) and col3, title="T3 SAT", message='T3 SAT {{ticker}}, FİYAT={{close}}')
+
+plotshape(ta.cross(T3, T3[1]) and col1 and acT3AlSat ,title ='T3 AL', text='T3', style=shape.triangleup, location=location.belowbar, color=color.new(color.lime, 0), offset=-1, size=size.small)
+plotshape(ta.cross(T3, T3[1]) and col3 and acT3AlSat ,title ='T3 SAT', text='T3', style=shape.triangledown, location=location.abovebar, color=color.new(color.red, 0), offset=-1, size=size.small)
 
 
 //EMA 5/22
@@ -197,6 +226,9 @@ myRsi1S = ta.rsi(myClose1S,14)
 myEma121S = ta.ema(myRsi1S, 12)
 plot(myRsi1S and acRsi14 ? myRsi1S : na , title="Rsi14 Trend", color=color.new(color.yellow,0), offset=0, linewidth=2)
 plot(myEma121S and acRsi14 ? myEma121S : na, title="Rsi14 Ema12 Trend", color=color.new(color.yellow,100), offset=0, linewidth=2)
+
+//Tillson Plot
+plot(T3 and acT3 ? T3 : na, color=color_1, linewidth=3, title='T3')
 
 
 ///HEDEFE VARDI
