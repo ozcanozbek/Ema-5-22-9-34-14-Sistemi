@@ -1,27 +1,72 @@
 //O2can O2bek (Özcan Özbek)
 //@version=5
-indicator(title='Ema 5/22 9/34 14 Sistemi - V1.4', shorttitle='Ema 5/22 9/34 14 Sistemi', overlay=true, timeframe="")
-
+indicator(title='Ema 5/22 9/34 14 Sistemi - V1.6', shorttitle='Ema 5/22 9/34 14 Sistemi', overlay=true, timeframe="")
 src = input(close, title='Source')
 
 
-
 //aç kapa
-acE522 = input(defval = false, title = 'Ema 5/22 Göstergeleri Gösterilsin mi?')   
+acE522 = input(defval = true, title = 'Ema 5/22 Göstergeleri Gösterilsin mi?')   
 acE522alSat = input(defval = false, title = 'Ema 5/22 Al/Sat Gösterilsin mi?')   
-acE934 = input(defval = false, title = 'Ema 9/34 Göstergeleri Gösterilsin mi?')   
+acE934 = input(defval = true, title = 'Ema 9/34 Göstergeleri Gösterilsin mi?')   
 acE934alSat = input(defval = false, title = 'Ema 9/34 Al/Sat Gösterilsin mi?')   
 acE14 = input(defval = false, title = 'Ema 14 Göstergeleri Gösterilsin mi?')   
 acFiboLines = input(defval = true, title = 'Fibo Yatay Çizgileri Gösterilsin mi?')   
-acTema = input(defval = true, title = 'Tema Çizgileri Gösterilsin mi?')   
+acTema = input(defval = false, title = 'Tema Çizgileri Gösterilsin mi?')   
 acST  = input(defval = false, title = 'Süper Trend Gösterilsin mi?')   
 acPPST  = input(defval = false, title = 'Pivot Point Süper Trend Gösterilsin mi?')   
-
-acRsi14 = false
-//acRsi14 = input(defval = false, title = 'Rsi Sistemi Gösterilsin mi?')   
-
 acT3 = input(defval = false, title = 'Tillson Çizgisi Gösterilsin mi?')   
 acT3AlSat = input(defval = false, title = 'Tillson Al / Sat Gösterilsin mi?')   
+
+
+
+// RSI/EMA
+myClose1S = request.security(syminfo.tickerid, timeframe.period, src)
+myRsiD = input.int(14, title='RSI Değeri', group="Rsi/Ema Çizgisi Değerleri")
+myRsi1S = ta.rsi(myClose1S,myRsiD)
+myEmaD = input.int(12, title='Ema Değeri', group="Rsi/Ema Çizgisi Değerleri")
+myEma121S = ta.ema(myRsi1S, myEmaD)
+acRsiEmaLW = input.int(defval = 4, title = 'Rsi/Ema Çizgisi Kalınlığı Sayısal Değeri', group="Rsi/Ema Çizgisi Değerleri") 
+
+acRsiEma = input(defval = false, title = 'Rsi/Ema Çizgisi Gösterilsin mi?', group="Rsi/Ema Çizgisi") 
+acRsiEmaAl = input(defval = false, title = 'Rsi/Ema Al İşaretleri Gösterilsin mi?', group="Rsi/Ema Çizgisi") 
+acRsiEmaSat = input(defval = false, title = 'Rsi/Ema Sat İşaretleri Gösterilsin mi?', group="Rsi/Ema Çizgisi") 
+acRsiEmaYatay = input(defval = false, title = 'Rsi/Ema Yatay Al İşaretleri Gösterilsin mi?', group="Rsi/Ema Çizgisi") 
+acRsiEmaCifteYatay = input(defval = false, title = 'Rsi/Ema Çift Yatay Al İşaretleri Gösterilsin mi?', group="Rsi/Ema Çizgisi") 
+
+myKoyuRenkY = input.color(#00897B , "Alım Bölgesinde (zirvede) Yükselirken", group="Rsi/Ema Çizgisi") 
+myAcikRenkY = input.color(color.green, "Satım Bölgesinden (dipte) Yükselirken", group="Rsi/Ema Çizgisi") 
+
+myAcikRenkD = input.color(color.red , "Alım Bölgesinden (zirvede) Düşerken", group="Rsi/Ema Çizgisi") 
+myKoyuRenkD = input.color(#880E4F  , "Satım Bölgesinde (dipte) Düşerken", group="Rsi/Ema Çizgisi") 
+
+myRsiColorY = myRsi1S <= 60 ? myAcikRenkY : myKoyuRenkY     
+myRsiColorD = myRsi1S <= 40 ? myKoyuRenkD : myAcikRenkD   
+myRsiColorTek = myRsi1S >= myEma121S ? myRsiColorY : myRsiColorD
+
+plot(acRsiEma ? myRsi1S >= myEma121S ? high : low : na, color=myRsiColorTek, title="RsiEma", linewidth=acRsiEmaLW)
+
+
+rsiSartAl = (myRsiColorTek[1]==myAcikRenkD or myRsiColorTek[1]==myKoyuRenkD) and (myRsiColorTek == myAcikRenkY or myRsiColorTek == myKoyuRenkY) 
+plotshape(rsiSartAl and acRsiEmaAl ,title ='Rsi/Ema AL' , style=shape.triangleup, location=location.belowbar, color=color.new(#00bcd4, 0), offset=0, size=size.normal)
+alertcondition(rsiSartAl, title="Rsi/Ema AL", message='Rsi/Ema AL fırsatı olabilir (xMA100 ve xMA200 konumunu kontrol et) {{ticker}}, FİYAT={{close}}')
+
+rsiSartSat = (myRsiColorTek[1]==myAcikRenkY or myRsiColorTek[1]==myKoyuRenkY) and (myRsiColorTek == myAcikRenkD or myRsiColorTek == myKoyuRenkD) 
+plotshape(rsiSartSat and acRsiEmaSat ,title ='Rsi/Ema SAT', style=shape.triangledown, location=location.abovebar, color=color.new(#00bcd4, 0), offset=0, size=size.normal)
+alertcondition(rsiSartSat, title="Rsi/Ema SAT", message='Rsi/Ema SAT fırsatı olabilir (xMA50 konumunu kontrol et) {{ticker}}, FİYAT={{close}}')
+
+rsiSartCiftYatay1 = (myKoyuRenkD==myRsiColorTek[1] and myKoyuRenkD==myRsiColorTek[2] and myKoyuRenkD==myRsiColorTek[3]) 
+//or (myAcikRenkD==myRsiColorTek[1] and myAcikRenkD==myRsiColorTek[2] and myAcikRenkD==myRsiColorTek[3])
+rsiSartCiftYatay2 = (low==low[1] or close==close[1] or high==high[1] or open==open[1]) and (low==low[2] or close==close[2] or high==high[2] or open==open[2])
+rsiSartCiftYatay = rsiSartCiftYatay1 and rsiSartCiftYatay2
+plotshape(rsiSartCiftYatay and acRsiEmaCifteYatay ,title ='Rsi/Ema Çift Yatay AL' , style=shape.square, location=location.belowbar, color=myKoyuRenkD, offset=0, size=size.large)
+alertcondition(rsiSartCiftYatay, title="Rsi/Ema Çift Yatay AL", message='2S Rsi/Ema Çift Yatay AL fırsatı olabilir {{ticker}}, FİYAT={{close}}')
+
+
+rsiSartYatay = ((myKoyuRenkD==myRsiColorTek[1] and myKoyuRenkD==myRsiColorTek[2]) or (myAcikRenkD==myRsiColorTek[1] and myAcikRenkD==myRsiColorTek[2])) and (low==low[1])
+rsiSartYatayE = rsiSartYatay /// and (low <= xMA_100 and low <= xMA_200)
+plotshape(rsiSartYatayE and acRsiEmaYatay ,title ='Rsi/Ema Yatay AL' , style=shape.square, location=location.belowbar, color=myAcikRenkD, offset=0, size=size.normal)
+alertcondition(rsiSartYatayE, title="Rsi/Ema Yatay AL", message='2S Rsi/Ema Yatay AL fırsatı olabilir {{ticker}}, FİYAT={{close}}')
+
 
 //Fibo Yatay Çizgileri
 len = input(defval = 150, title = 'Fibo Hesaplama Mum Sayısı') 
@@ -153,14 +198,14 @@ e21 = ta.ema(src, length2)
 e22 = ta.ema(e21, length2)
 e23 = ta.ema(e22, length2)
 dema2 = 3 * (e21 - e22) + e23  //tema50 
-plot(dema2 and acTema ? dema2 : na, 'Tema 50', color=color.new(color.yellow, 100), linewidth=3)
+plot(dema2 and acTema ? dema2 : na, 'Tema 50', color=color.new(color.yellow, 0), linewidth=3)
 
 length3 = 100 //input.int(100, minval=1)
 e31 = ta.ema(src, length3)
 e32 = ta.ema(e31, length3)
 e33 = ta.ema(e32, length3)
 dema3 = 3 * (e31 - e32) + e33    //tema100
-plot(dema3 and acTema ? dema3 : na, 'Tema 100', color=color.new(color.blue, 100), linewidth=3)
+plot(dema3 and acTema ? dema3 : na, 'Tema 100', color=color.new(color.blue, 0), linewidth=3)
 
 length4 = 200 //input.int(200, minval=1)
 e41 = ta.ema(src, length4)
@@ -219,13 +264,6 @@ Trailingsl = Trend == 1 ? TUp : TDown
 linecolor = Trend == 1 and nz(Trend[1]) == 1 ? color.lime : Trend == -1 and nz(Trend[1]) == -1 ? color.red : na
 plot(Trailingsl and acPPST ? Trailingsl : na , color=linecolor, linewidth=3, title='Pivot Point Super Trend')
 
-//
-tf1S = timeframe.period
-myClose1S = request.security(syminfo.tickerid, tf1S, hlc3)
-myRsi1S = ta.rsi(myClose1S,14)
-myEma121S = ta.ema(myRsi1S, 12)
-plot(myRsi1S and acRsi14 ? myRsi1S : na , title="Rsi14 Trend", color=color.new(color.yellow,0), offset=0, linewidth=2)
-plot(myEma121S and acRsi14 ? myEma121S : na, title="Rsi14 Ema12 Trend", color=color.new(color.yellow,100), offset=0, linewidth=2)
 
 //Tillson Plot
 plot(T3 and acT3 ? T3 : na, color=color_1, linewidth=3, title='T3')
