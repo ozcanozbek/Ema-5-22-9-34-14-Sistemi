@@ -16,10 +16,12 @@ acFiboLines = input(defval = true, title = 'Fibo Yatay Çizgileri Gösterilsin m
 acTema = input(defval = true, title = 'Tema Çizgileri Gösterilsin mi?')   
 acST  = input(defval = false, title = 'Süper Trend Gösterilsin mi?')   
 acPPST  = input(defval = false, title = 'Pivot Point Süper Trend Gösterilsin mi?')   
-acRsi14 = input(defval = false, title = 'Rsi Sistemi Gösterilsin mi?')   
+
+acRsi14 = false
+//acRsi14 = input(defval = false, title = 'Rsi Sistemi Gösterilsin mi?')   
 
 //Fibo Yatay Çizgileri
-len = input(defval = 200, title = 'Fibo Hesaplama Mum Sayısı') 
+len = input(defval = 150, title = 'Fibo Hesaplama Mum Sayısı') 
 fractal_top = 0.0
 fractal_top := high < high[2] and high[1] < high[2] and high[3] < high[2] and high[4] < high[2] ? high[2] : fractal_top[1]
 fractal_bottom = 0.0
