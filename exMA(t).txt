@@ -1,0 +1,303 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © ozcanozbek
+
+//@version=5
+indicator(title ="exMA(t) - V1.1.01", shorttitle ="exMA(t)", overlay=true, timeframe="", timeframe_gaps=true)
+
+//myClose = request.security(syminfo.tickerid, timeframe.period, close)
+//src = request.security(syminfo.tickerid, timeframe.period, close)
+src = input.source(close, "Kaynak", group="Kaynak Çeşitleri")
+
+
+// Fibo Ayarları
+acFiboLines = input(defval = true, title = 'Fibo Yatay Çizgileri Gözüksün mü?', group="Fibo Ayarları")   
+acFlUst = input(defval = true, title = 'Fibo Üst Yatay Çizgileri Gözüksün mü?', group="Fibo Ayarları")   
+acFlOrta = input(defval = true, title = 'Fibo Orta Yatay Çizgileri Gözüksün mü?', group="Fibo Ayarları")   
+acFlAlt = input(defval = true, title = 'Fibo Alt Yatay Çizgileri Gözüksün mü?', group="Fibo Ayarları")   
+fibLen = input(defval = 150, title = 'Fibo Hesaplama Mum Sayısı', group="Fibo Ayarları")  
+
+
+//TimeFrame
+string xMAMum9 = input.timeframe(defval = "Grafik", title = "xMA9 Çalışma Mumu" ,options=["Grafik", "1 Dakika", "5 Dakika", "15 Dakika", "30 Dakika", "2 Saat", "4 Saat", "1 Gün", "1 Hafta", "1 Ay"] , group="xMA9 Değerleri")
+string xMAMum13 = input.timeframe(defval = "Grafik", title = "xMA13 Çalışma Mumu" ,options=["Grafik", "1 Dakika", "5 Dakika", "15 Dakika", "30 Dakika", "2 Saat", "4 Saat", "1 Gün", "1 Hafta", "1 Ay"] , group="xMA13 Değerleri")
+string xMAMum21 = input.timeframe(defval = "Grafik", title = "xMA21 Çalışma Mumu" ,options=["Grafik", "1 Dakika", "5 Dakika", "15 Dakika", "30 Dakika", "2 Saat", "4 Saat", "1 Gün", "1 Hafta", "1 Ay"] , group="xMA21 Değerleri")
+string xMAMum34 = input.timeframe(defval = "Grafik", title = "xMA34 Çalışma Mumu" ,options=["Grafik", "1 Dakika", "5 Dakika", "15 Dakika", "30 Dakika", "2 Saat", "4 Saat", "1 Gün", "1 Hafta", "1 Ay"] , group="xMA34 Değerleri")
+string xMAMum50 = input.timeframe(defval = "Grafik", title = "xMA50 Çalışma Mumu" ,options=["Grafik", "1 Dakika", "5 Dakika", "15 Dakika", "30 Dakika", "2 Saat", "4 Saat", "1 Gün", "1 Hafta", "1 Ay"] , group="xMA50 Değerleri")
+string xMAMum89 = input.timeframe(defval = "Grafik", title = "xMA89 Çalışma Mumu" ,options=["Grafik", "1 Dakika", "5 Dakika", "15 Dakika", "30 Dakika", "2 Saat", "4 Saat", "1 Gün", "1 Hafta", "1 Ay"] , group="xMA89 Değerleri")
+string xMAMum100 = input.timeframe(defval = "Grafik", title = "xMA100 Çalışma Mumu" ,options=["Grafik", "1 Dakika", "5 Dakika", "15 Dakika", "30 Dakika", "2 Saat", "4 Saat", "1 Gün", "1 Hafta", "1 Ay"] , group="xMA100 Değerleri")
+string xMAMum144 = input.timeframe(defval = "Grafik", title = "xMA144 Çalışma Mumu" ,options=["Grafik", "1 Dakika", "5 Dakika", "15 Dakika", "30 Dakika", "2 Saat", "4 Saat", "1 Gün", "1 Hafta", "1 Ay"] , group="xMA144 Değerleri")
+string xMAMum200 = input.timeframe(defval = "Grafik", title = "xMA200 Çalışma Mumu" ,options=["Grafik", "1 Dakika", "5 Dakika", "15 Dakika", "30 Dakika", "2 Saat", "4 Saat", "1 Gün", "1 Hafta", "1 Ay"] , group="xMA200 Değerleri")
+
+
+
+// xMA Çizgi ve Kesişmeleri
+string xMaTip9 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA9 tipi", group="xMA9 Değerleri")
+string xMaTip13 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA13 tipi", group="xMA13 Değerleri")
+string xMaTip21 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA21 tipi", group="xMA21 Değerleri")
+string xMaTip34 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA34 tipi", group="xMA34 Değerleri")
+string xMaTip50 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA50 tipi", group="xMA50 Değerleri")
+string xMaTip89 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA89 tipi", group="xMA89 Değerleri")
+string xMaTip100 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA100 tipi", group="xMA100 Değerleri")
+string xMaTip144 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA144 tipi", group="xMA144 Değerleri")
+string xMaTip200 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA200 tipi", group="xMA200 Değerleri")
+
+
+
+demaHesapla(mySrc,len)=>
+    ema1 = ta.ema(close, len)
+    ema2 = ta.ema(ema1, len)
+    (2 * ema1) - ema2  
+
+temaHesapla(mySrc,len)=>
+    ema1 = ta.ema(close, len)
+    ema2 = ta.ema(ema1, len)
+    ema3 = ta.ema(ema2, len)
+    3 * (ema1 - ema2) + ema3  
+
+xMaKontrol(xMaTip, mySrc, len)=>
+    float xMA = switch xMaTip
+        "EMA" => ta.ema(close, len) 
+        "SMA" => ta.sma(close, len) 
+        "HMA" => ta.hma(close, len) 
+        "RMA" => ta.rma(close, len) 
+        "WMA" => ta.wma(close, len) 
+        "(D)EMA" => demaHesapla(close,len)
+        "(T)EMA" => temaHesapla(close,len)
+        => 0.0 
+
+xMaMumKontrol(xMaMumTip)=>
+    string xMA = switch xMaMumTip
+        "1 Dakika" => "1"
+        "5 Dakika" => "5"
+        "15 Dakika" => "15"
+        "30 Dakika" => "30"
+        "2 Saat" => "120" 
+        "4 Saat" => "240" 
+        "1 Gün" => "D"
+        "1 Hafta" => "W"
+        "1 Ay" => "M"
+        => str.tostring(timeframe.period)
+
+
+acxMaCizgisi = input(defval = true, title = 'xMA Çizgileri Gözüksün mü?', group="xMA Çizgileri")  
+acxMa9Cizgisi = input(defval = false, title = 'xMA9 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
+acxMa13Cizgisi = input(defval = false, title = 'xMA13 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
+acxMa21Cizgisi = input(defval = true, title = 'xMA21 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
+acxMa34Cizgisi = input(defval = false, title = 'xMA34 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
+acxMa50Cizgisi = input(defval = true, title = 'xMA50 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
+acxMa89Cizgisi = input(defval = false, title = 'xMA89 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
+acxMa100Cizgisi = input(defval = true, title = 'xMA100 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
+acxMa144Cizgisi = input(defval = false, title = 'xMA144 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
+acxMa200Cizgisi = input(defval = true, title = 'xMA200 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
+
+xMA_9_Color = color.new(color.lime, 0)
+xMA_13_Color = color.new(color.purple, 0)
+xMA_21_Color = color.new(color.white, 0)
+xMA_34_Color = color.new(#00bcd4, 0)
+xMA_50_Color = color.new(color.yellow, 0)
+xMA_89_Color = color.new(color.teal, 0)
+xMA_100_Color = color.new(color.blue, 0)
+xMA_144_Color = color.new(color.gray, 0)
+xMA_200_Color = color.new(#be660b, 0)
+
+
+
+length0a = input(9, 'xMA 9', group="xMA9 Değerleri")
+xMaMum9Src = xMaMumKontrol(xMAMum9)
+xMA_9 = xMaKontrol(xMaTip9, close, length0a) 
+xMA_9Src = request.security(syminfo.tickerid,xMaMum9Src, xMA_9)
+plot(xMA_9Src and acxMaCizgisi and acxMa9Cizgisi ? xMA_9Src : na , color=xMA_9_Color, linewidth=3, title='xMa9 Çizgisi')
+
+length1a = input(13, 'xMA 13', group="xMA13 Değerleri")
+xMaMum13Src = xMaMumKontrol(xMAMum13)
+xMA_13 = xMaKontrol(xMaTip13, close, length1a) 
+xMA_13Src = request.security(syminfo.tickerid,xMaMum13Src, xMA_13)
+plot(xMA_13Src and acxMaCizgisi and acxMa13Cizgisi ? xMA_13Src : na , color=xMA_13_Color, linewidth=2, title='xMa13 Çizgisi')
+
+length2a = input(21, 'xMA 21', group="xMA21 Değerleri")
+xMaMum21Src = xMaMumKontrol(xMAMum21)
+xMA_21 = xMaKontrol(xMaTip21, close, length2a) 
+xMA_21Src = request.security(syminfo.tickerid,xMaMum21Src, xMA_21)
+plot(xMA_21Src and acxMaCizgisi and acxMa21Cizgisi ? xMA_21Src : na , color=xMA_21_Color , linewidth=3, title='xMa21 Çizgisi')
+
+length3a = input(34, 'xMA 34', group="xMA34 Değerleri")
+xMaMum34Src = xMaMumKontrol(xMAMum34)
+xMA_34 = xMaKontrol(xMaTip34, close, length3a)
+xMA_34Src = request.security(syminfo.tickerid,xMaMum34Src, xMA_34)
+plot(xMA_34Src and acxMaCizgisi and acxMa34Cizgisi ? xMA_34Src : na , color=xMA_34_Color, linewidth=3, title='xMa34 Çizgisi')
+
+length4a = input(50, 'xMA 50', group="xMA50 Değerleri")
+xMaMum50Src = xMaMumKontrol(xMAMum50)
+xMA_50 = xMaKontrol(xMaTip50, close, length4a) 
+xMA_50Src = request.security(syminfo.tickerid,xMaMum50Src, xMA_50)
+plot(xMA_50Src and acxMaCizgisi and acxMa50Cizgisi ? xMA_50Src : na , color=xMA_50_Color, linewidth=3, title='xMa50 Çizgisi')
+
+length5a = input(89, 'xMA 89', group="xMA89 Değerleri")
+xMaMum89Src = xMaMumKontrol(xMAMum89)
+xMA_89 = xMaKontrol(xMaTip89, close, length5a) 
+xMA_89Src = request.security(syminfo.tickerid,xMaMum89Src, xMA_89)
+plot(xMA_89Src and acxMaCizgisi and acxMa89Cizgisi ? xMA_89Src : na , color=xMA_89_Color, linewidth=3, title='xMa89 Çizgisi')
+
+length6a = input(100, 'xMA 100', group="xMA100 Değerleri")
+xMaMum100Src = xMaMumKontrol(xMAMum100)
+xMA_100 = xMaKontrol(xMaTip100, close, length6a) 
+xMA_100Src = request.security(syminfo.tickerid,xMaMum100Src, xMA_100)
+plot(xMA_100Src and acxMaCizgisi and acxMa100Cizgisi ? xMA_100Src : na , color=xMA_100_Color, linewidth=3, title='xMa100 Çizgisi')
+
+length7a = input(144, 'xMA 144', group="xMA144 Değerleri")
+xMaMum144Src = xMaMumKontrol(xMAMum144)
+xMA_144 = xMaKontrol(xMaTip144, close, length7a) 
+xMA_144Src = request.security(syminfo.tickerid,xMaMum144Src, xMA_144)
+plot(xMA_144Src and acxMaCizgisi and acxMa144Cizgisi ? xMA_144Src : na , color=xMA_144_Color, linewidth=3, title='xMa144 Çizgisi')
+
+length8a = input(200, 'xMA 200', group="xMA200 Değerleri")
+xMaMum200Src = xMaMumKontrol(xMAMum200)
+xMA_200 = xMaKontrol(xMaTip200, close, length8a) 
+xMA_200Src = request.security(syminfo.tickerid,xMaMum200Src, xMA_200)
+plot(xMA_200Src and acxMaCizgisi and acxMa200Cizgisi ? xMA_200Src : na , color=xMA_200_Color, linewidth=3, title='xMa200 Çizgisi')
+
+
+kesAxMA_9 = ta.crossunder(src , xMA_9Src) 
+kesAxMA_13 = ta.crossunder(src , xMA_13Src) 
+kesAxMA_21 = ta.crossunder(src , xMA_21Src) 
+kesAxMA_34 = ta.crossunder(src , xMA_34Src) 
+kesAxMA_50 = ta.crossunder(src , xMA_50Src) 
+kesAxMA_89 = ta.crossunder(src , xMA_89Src) 
+kesAxMA_100 = ta.crossunder(src , xMA_100Src) 
+kesAxMA_144 = ta.crossunder(src , xMA_144Src) 
+kesAxMA_200 = ta.crossunder(src , xMA_200Src) 
+
+kesYxMA_9 = ta.crossover(src , xMA_9Src) 
+kesYxMA_13 = ta.crossover(src , xMA_13Src) 
+kesYxMA_21 = ta.crossover(src , xMA_21Src) 
+kesYxMA_34 = ta.crossover(src , xMA_34Src) 
+kesYxMA_50 = ta.crossover(src , xMA_50Src) 
+kesYxMA_89 = ta.crossover(src , xMA_89Src) 
+kesYxMA_100 = ta.crossover(src , xMA_100Src) 
+kesYxMA_144 = ta.crossover(src , xMA_144Src) 
+kesYxMA_200 = ta.crossover(src , xMA_200Src) 
+
+
+
+xMaAStyle = shape.triangledown
+xMaASize = size.small
+xMaAColor = color.red
+xMaALocation = location.abovebar
+
+xMaYStyle = shape.triangleup
+xMaYSize = size.small
+xMaYColor = color.lime
+xMaYLocation = location.belowbar
+
+
+acxMaKesmeler = input(defval = true, title = 'xMA Kesme İşaretleri Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMaAKesmeler = input(defval = true, title = 'xMA Aşağı Kesme İşaretleri Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMaYKesmeler = input(defval = true, title = 'xMA Yukarı Kesme İşaretleri Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa9AKesmeler = input(defval = false, title = 'xMA9 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa9YKesmeler = input(defval = false, title = 'xMA9 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa13AKesmeler = input(defval = false, title = 'xMA13 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa13YKesmeler = input(defval = false, title = 'xMA13 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa21AKesmeler = input(defval = false, title = 'xMA21 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa21YKesmeler = input(defval = false, title = 'xMA21 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa34AKesmeler = input(defval = false, title = 'xMA34 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa34YKesmeler = input(defval = false, title = 'xMA34 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa50AKesmeler = input(defval = false, title = 'xMA50 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa50YKesmeler = input(defval = false, title = 'xMA50 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa89AKesmeler = input(defval = false, title = 'xMA89 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa89YKesmeler = input(defval = false, title = 'xMA89 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa100AKesmeler = input(defval = false, title = 'xMA100 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa100YKesmeler = input(defval = false, title = 'xMA100 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa144AKesmeler = input(defval = false, title = 'xMA144 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa144YKesmeler = input(defval = false, title = 'xMA144 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa200AKesmeler = input(defval = false, title = 'xMA200 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa200YKesmeler = input(defval = false, title = 'xMA200 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+
+plotshape(kesAxMA_9 and acxMa9Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa9AKesmeler ? kesAxMA_9 : na , title = 'xMa9 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_9_Color, offset=0, size=xMaASize)
+plotshape(kesAxMA_13 and acxMa13Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa13AKesmeler ? kesAxMA_13 : na ,title ='xMa13 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_13_Color, offset=0, size=xMaASize)
+plotshape(kesAxMA_21 and acxMa21Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa21AKesmeler ? kesAxMA_21 : na ,title ='xMa21 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_21_Color, offset=0, size=xMaASize)
+plotshape(kesAxMA_34 and acxMa34Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa34AKesmeler ? kesAxMA_34 : na ,title ='xMa34 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_34_Color, offset=0, size=xMaASize)
+//plotshape(kesAxMA_50 and acxMa50Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa50AKesmeler ? kesAxMA_50 : na ,title ='xMa50 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_50_Color, offset=0, size=xMaASize)
+//alertcondition(kesAxMA_50, title="xMA50 SSF", message='2S xMA50 SSF (son SATIŞ fırsatı olabilir) {{ticker}}, FİYAT={{close}}')
+plotshape(kesAxMA_89 and acxMa89Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa89AKesmeler ? kesAxMA_89 : na ,title ='xMa89 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_89_Color, offset=0, size=xMaASize)
+plotshape(kesAxMA_100 and acxMa100Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa100AKesmeler ? kesAxMA_100 : na ,title ='xMa100 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_100_Color, offset=0, size=xMaASize)
+//alertcondition(kesAxMA_100, title="xMA100 AK", message='2S xMA100 AK (100 ü aşağı kesti) {{ticker}}, FİYAT={{close}}')
+plotshape(kesAxMA_144 and acxMa144Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa144AKesmeler ? kesAxMA_144 : na ,title ='xMa144 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_144_Color, offset=0, size=xMaASize)
+plotshape(kesAxMA_200 and acxMa200Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa200AKesmeler ? kesAxMA_200 : na ,title ='xMa200 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_200_Color, offset=0, size=xMaASize)
+//alertcondition(kesAxMA_200, title="xMA200 AK", message='2S xMA200 AK (200 ü aşağı kesti) {{ticker}}, FİYAT={{close}}')
+plotshape(kesAxMA_50 and acxMa50Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa50AKesmeler ? kesAxMA_50 : na ,title ='xMa50 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_50_Color, offset=0, size=xMaASize)
+//alertcondition(kesAxMA_50, title="xMA50 SSF", message='2S xMA50 SSF (son SATIŞ fırsatı olabilir) {{ticker}}, FİYAT={{close}}')
+//alertcondition(kesAxMA_100 or kesAxMA_200, title="(xMA100 veya xMA200) AK", message='2S xMA100 veya xMA200 AK (100 veya 200 ü aşağı kesti) {{ticker}}, FİYAT={{close}}')
+
+plotshape(kesYxMA_9 and acxMa9Cizgisi  and acxMaKesmeler and acxMaYKesmeler and acxMa9YKesmeler ? kesYxMA_9 : na ,title ='xMa9 Yukarı Kes', text='', style=xMaYStyle , location=xMaYLocation, color=xMA_9_Color, offset=0, size=xMaYSize)
+plotshape(kesYxMA_13 and acxMa13Cizgisi and acxMaKesmeler and acxMaYKesmeler and acxMa13YKesmeler ? kesYxMA_13 : na ,title ='xMa13 Yukarı Kes', text='', style=xMaYStyle , location=xMaYLocation, color=xMA_13_Color, offset=0, size=xMaYSize)
+plotshape(kesYxMA_21 and acxMa21Cizgisi and acxMaKesmeler and acxMaYKesmeler and acxMa21YKesmeler ? kesYxMA_21 : na ,title ='xMa21 Yukarı Kes', text='', style=xMaYStyle , location=xMaYLocation, color=xMA_21_Color, offset=0, size=xMaYSize)
+plotshape(kesYxMA_34 and acxMa34Cizgisi and acxMaKesmeler and acxMaYKesmeler and acxMa34YKesmeler ? kesYxMA_34 : na ,title ='xMa34 Yukarı Kes', text='', style=xMaYStyle , location=xMaYLocation, color=xMA_34_Color, offset=0, size=xMaYSize)
+plotshape(kesYxMA_50 and acxMa50Cizgisi  and acxMaKesmeler and acxMaYKesmeler and acxMa50YKesmeler ? kesYxMA_50 : na ,title ='xMa50 Yukarı Kes', text='', style=xMaYStyle , location=xMaYLocation, color=xMA_50_Color, offset=0, size=xMaYSize)
+plotshape(kesYxMA_89 and acxMa89Cizgisi  and acxMaKesmeler and acxMaYKesmeler and acxMa89YKesmeler ? kesYxMA_89 : na ,title ='xMa89 Yukarı Kes', text='', style=xMaYStyle , location=xMaYLocation, color=xMA_89_Color, offset=0, size=xMaYSize)
+plotshape(kesYxMA_100 and acxMa100Cizgisi  and acxMaKesmeler and acxMaYKesmeler and acxMa100YKesmeler ? kesYxMA_100 : na ,title ='xMa100 Yukarı Kes', text='', style=xMaYStyle , location=xMaYLocation, color=xMA_100_Color, offset=0, size=xMaYSize)
+//alertcondition(kesYxMA_100, title="xMA100 YK", message='2S xMA100 YK (100 ü yukarı kesti) {{ticker}}, FİYAT={{close}}')
+plotshape(kesYxMA_144 and acxMa144Cizgisi and acxMaKesmeler and acxMaYKesmeler and acxMa144YKesmeler ? kesYxMA_144  : na ,title ='xMa144 Yukarı Kes', text='', style=xMaYStyle , location=xMaYLocation, color=xMA_144_Color, offset=0, size=xMaYSize)
+plotshape(kesYxMA_200 and acxMa200Cizgisi and acxMaKesmeler and acxMaYKesmeler and acxMa200YKesmeler ? kesYxMA_200 : na ,title ='xMa200 Yukarı Kes', text='', style=xMaYStyle , location=xMaYLocation, color=xMA_200_Color, offset=0, size=xMaYSize)
+//alertcondition(kesYxMA_200, title="xMA200 YK", message='2S xMA200 YK (200 ü yukarı kesti) {{ticker}}, FİYAT={{close}}')
+//alertcondition(kesYxMA_100 or kesYxMA_200, title="(xMA100 veya xMA200) YK", message='2S xMA100 veya xMA200 YK (100 veya 200 ü yukarı kesti) {{ticker}}, FİYAT={{close}}')
+
+
+
+
+//Fiblines
+fractal_top = 0.0
+fractal_top := high < high[2] and high[1] < high[2] and high[3] < high[2] and high[4] < high[2] ? high[2] : fractal_top[1]
+fractal_bottom = 0.0
+fractal_bottom := low > low[2] and low[1] > low[2] and low[3] > low[2] and low[4] > low[2] ? low[2] : fractal_bottom[1]
+
+srcHigh = ta.highest(fractal_top, fibLen)
+srcLow = ta.lowest(fractal_bottom, fibLen)
+diff = srcHigh - srcLow
+
+line2272 = srcLow + diff * 2.272
+line2000 = srcLow + diff * 2.000
+line1618 = srcLow + diff * 1.618
+line1414 = srcLow + diff * 1.414
+line1272 = srcLow + diff * 1.272
+line1000 = srcHigh
+line0786 = srcLow + diff * 0.786
+line0618 = srcLow + diff * 0.618
+line0500 = srcLow + diff * 0.500
+line0382 = srcLow + diff * 0.382
+line0236 = srcLow + diff * 0.236
+line0000 = srcLow
+line1272_2 = srcHigh - diff * 1.272
+line1414_2 = srcHigh - diff * 1.414
+line1618_2 = srcHigh - diff * 1.618
+line2000_2 = srcHigh - diff * 2.000
+line2272_2 = srcHigh - diff * 2.272
+
+
+plot(line2272 and acFiboLines and acFlUst ? line2272 : na, title='2.272', color=color.new(color.green, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line2000 and acFiboLines and acFlUst ? line2000 : na, title='2.000', color=color.new(color.green, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line1618 and acFiboLines and acFlUst ? line1618 : na, title='1.618', color=color.new(color.green, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line1414 and acFiboLines and acFlUst ? line1414 : na, title='1.414', color=color.new(color.green, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line1272 and acFiboLines and acFlUst ? line1272 : na, title='1.272', color=color.new(color.green, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line1000 and acFiboLines and acFlOrta ? line1000 : na, title='1.000', color=color.new(#2E9AFE, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line0786 and acFiboLines and acFlOrta ? line0786 : na, title='0.786', color=color.new(#2E9AFE, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line0618 and acFiboLines and acFlOrta ? line0618 : na, title='0.618', color=color.new(#2E9AFE, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line0500 and acFiboLines and acFlOrta ? line0500 : na, title='0.500', color=color.new(#2E9AFE, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line0382 and acFiboLines and acFlOrta ? line0382 : na, title='0.382', color=color.new(#2E9AFE, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line0236 and acFiboLines and acFlOrta ? line0236 : na, title='0.236', color=color.new(#2E9AFE, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line0000 and acFiboLines and acFlOrta ? line0000 : na, title='0.000', color=color.new(#2E9AFE, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line1272_2 and acFiboLines and acFlAlt ? line1272_2 : na, title='-0.272', color=color.new(color.red, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line1414_2 and acFiboLines and acFlAlt ? line1414_2 : na, title='-0.414', color=color.new(color.red, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line1618_2 and acFiboLines and acFlAlt ? line1618_2 : na, title='-0.618', color=color.new(color.red, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line2000_2 and acFiboLines and acFlAlt ? line2000_2 : na, title='-1.000', color=color.new(color.red, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+plot(line2272_2 and acFiboLines and acFlAlt ? line2272_2 : na, title='-1.272', color=color.new(color.red, 0), style=plot.style_cross, trackprice=true, offset=-9999, linewidth=1)
+
+
+
+//BOYAMALAR
+string boyaBir = input.timeframe(defval = "xMA9", title = "Boya Birinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200"] , group="Boyama Bölümü")
+string boyaIki = input.timeframe(defval = "xMA9", title = "Boya İkinci" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200"] , group="Boyama Bölümü")
+
+
+
+
+//BURADA BİTTİ
