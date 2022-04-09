@@ -2,7 +2,7 @@
 // © ozcanozbek
 
 //@version=5
-indicator(title ="exMA(t) - V1.1.02", shorttitle ="exMA(t)", overlay=true, timeframe="", timeframe_gaps=true)
+indicator(title ="exMA(t) - V1.1.03", shorttitle ="exMA(t)", overlay=true, timeframe="", timeframe_gaps=true)
 
 //myClose = request.security(syminfo.tickerid, timeframe.period, close)
 //src = request.security(syminfo.tickerid, timeframe.period, close)
@@ -324,7 +324,7 @@ float ma1 = switch boyaBir
 	"xMA100" => xMA_100Src
 	"xMA144" => xMA_144Src
 	"xMA200" => xMA_200Src
-ilk = plot(acBoyama ? ma1 : na, color = color.new(color.white, 100))
+ilk = plot(acBoyama and acxMaCizgisi ? ma1 : na, color = color.new(color.white, 100))
 
 float ba2 = switch boyaIki
 	"xMA9" => xMA_9
@@ -347,9 +347,10 @@ float ma2 = switch boyaIki
 	"xMA100" => xMA_100Src
 	"xMA144" => xMA_144Src
 	"xMA200" => xMA_200Src
-son = plot(acBoyama ? ma2 : na, color = color.new(color.white, 100))
+son = plot(acBoyama and acxMaCizgisi ? ma2 : na, color = color.new(color.white, 100))
 
-myBoya = ba1 >= ba2 ? myRenkBir : myRenkIki
+//myBoya = acBoyama ? ba1 >= ba2 ? myRenkBir : myRenkIki : color.new(color.white, 100)
+myBoya = ba1 >= ba2 ? myRenkBir : myRenkIki 
 fill(ilk, son , title = 'Birinci Bölge', color = myBoya, fillgaps = true, transp=75)
 
 //BURADA BİTTİ
