@@ -2,7 +2,7 @@
 // © ozcanozbek
 
 //@version=5
-indicator(title ="exMA(t) - V1.1.01", shorttitle ="exMA(t)", overlay=true, timeframe="", timeframe_gaps=true)
+indicator(title ="exMA(t) - V1.1.02", shorttitle ="exMA(t)", overlay=true, timeframe="", timeframe_gaps=true)
 
 //myClose = request.security(syminfo.tickerid, timeframe.period, close)
 //src = request.security(syminfo.tickerid, timeframe.period, close)
@@ -106,55 +106,55 @@ length0a = input(9, 'xMA 9', group="xMA9 Değerleri")
 xMaMum9Src = xMaMumKontrol(xMAMum9)
 xMA_9 = xMaKontrol(xMaTip9, close, length0a) 
 xMA_9Src = request.security(syminfo.tickerid,xMaMum9Src, xMA_9)
-plot(xMA_9Src and acxMaCizgisi and acxMa9Cizgisi ? xMA_9Src : na , color=xMA_9_Color, linewidth=3, title='xMa9 Çizgisi')
+xMA_9_Plot = plot(xMA_9Src and acxMaCizgisi and acxMa9Cizgisi ? xMA_9Src : na , color=xMA_9_Color, linewidth=3, title='xMa9 Çizgisi')
 
 length1a = input(13, 'xMA 13', group="xMA13 Değerleri")
 xMaMum13Src = xMaMumKontrol(xMAMum13)
 xMA_13 = xMaKontrol(xMaTip13, close, length1a) 
 xMA_13Src = request.security(syminfo.tickerid,xMaMum13Src, xMA_13)
-plot(xMA_13Src and acxMaCizgisi and acxMa13Cizgisi ? xMA_13Src : na , color=xMA_13_Color, linewidth=2, title='xMa13 Çizgisi')
+xMA_13_Plot = plot(xMA_13Src and acxMaCizgisi and acxMa13Cizgisi ? xMA_13Src : na , color=xMA_13_Color, linewidth=2, title='xMa13 Çizgisi')
 
 length2a = input(21, 'xMA 21', group="xMA21 Değerleri")
 xMaMum21Src = xMaMumKontrol(xMAMum21)
 xMA_21 = xMaKontrol(xMaTip21, close, length2a) 
 xMA_21Src = request.security(syminfo.tickerid,xMaMum21Src, xMA_21)
-plot(xMA_21Src and acxMaCizgisi and acxMa21Cizgisi ? xMA_21Src : na , color=xMA_21_Color , linewidth=3, title='xMa21 Çizgisi')
+xMA_21_Plot = plot(xMA_21Src and acxMaCizgisi and acxMa21Cizgisi ? xMA_21Src : na , color=xMA_21_Color , linewidth=3, title='xMa21 Çizgisi')
 
 length3a = input(34, 'xMA 34', group="xMA34 Değerleri")
 xMaMum34Src = xMaMumKontrol(xMAMum34)
 xMA_34 = xMaKontrol(xMaTip34, close, length3a)
 xMA_34Src = request.security(syminfo.tickerid,xMaMum34Src, xMA_34)
-plot(xMA_34Src and acxMaCizgisi and acxMa34Cizgisi ? xMA_34Src : na , color=xMA_34_Color, linewidth=3, title='xMa34 Çizgisi')
+xMA_34_Plot = plot(xMA_34Src and acxMaCizgisi and acxMa34Cizgisi ? xMA_34Src : na , color=xMA_34_Color, linewidth=3, title='xMa34 Çizgisi')
 
 length4a = input(50, 'xMA 50', group="xMA50 Değerleri")
 xMaMum50Src = xMaMumKontrol(xMAMum50)
 xMA_50 = xMaKontrol(xMaTip50, close, length4a) 
 xMA_50Src = request.security(syminfo.tickerid,xMaMum50Src, xMA_50)
-plot(xMA_50Src and acxMaCizgisi and acxMa50Cizgisi ? xMA_50Src : na , color=xMA_50_Color, linewidth=3, title='xMa50 Çizgisi')
+xMA_50_Plot = plot(xMA_50Src and acxMaCizgisi and acxMa50Cizgisi ? xMA_50Src : na , color=xMA_50_Color, linewidth=3, title='xMa50 Çizgisi')
 
 length5a = input(89, 'xMA 89', group="xMA89 Değerleri")
 xMaMum89Src = xMaMumKontrol(xMAMum89)
 xMA_89 = xMaKontrol(xMaTip89, close, length5a) 
 xMA_89Src = request.security(syminfo.tickerid,xMaMum89Src, xMA_89)
-plot(xMA_89Src and acxMaCizgisi and acxMa89Cizgisi ? xMA_89Src : na , color=xMA_89_Color, linewidth=3, title='xMa89 Çizgisi')
+xMA_89_Plot = plot(xMA_89Src and acxMaCizgisi and acxMa89Cizgisi ? xMA_89Src : na , color=xMA_89_Color, linewidth=3, title='xMa89 Çizgisi')
 
 length6a = input(100, 'xMA 100', group="xMA100 Değerleri")
 xMaMum100Src = xMaMumKontrol(xMAMum100)
 xMA_100 = xMaKontrol(xMaTip100, close, length6a) 
 xMA_100Src = request.security(syminfo.tickerid,xMaMum100Src, xMA_100)
-plot(xMA_100Src and acxMaCizgisi and acxMa100Cizgisi ? xMA_100Src : na , color=xMA_100_Color, linewidth=3, title='xMa100 Çizgisi')
+xMA_100_Plot = plot(xMA_100Src and acxMaCizgisi and acxMa100Cizgisi ? xMA_100Src : na , color=xMA_100_Color, linewidth=3, title='xMa100 Çizgisi')
 
 length7a = input(144, 'xMA 144', group="xMA144 Değerleri")
 xMaMum144Src = xMaMumKontrol(xMAMum144)
 xMA_144 = xMaKontrol(xMaTip144, close, length7a) 
 xMA_144Src = request.security(syminfo.tickerid,xMaMum144Src, xMA_144)
-plot(xMA_144Src and acxMaCizgisi and acxMa144Cizgisi ? xMA_144Src : na , color=xMA_144_Color, linewidth=3, title='xMa144 Çizgisi')
+xMA_144_Plot = plot(xMA_144Src and acxMaCizgisi and acxMa144Cizgisi ? xMA_144Src : na , color=xMA_144_Color, linewidth=3, title='xMa144 Çizgisi')
 
 length8a = input(200, 'xMA 200', group="xMA200 Değerleri")
 xMaMum200Src = xMaMumKontrol(xMAMum200)
 xMA_200 = xMaKontrol(xMaTip200, close, length8a) 
 xMA_200Src = request.security(syminfo.tickerid,xMaMum200Src, xMA_200)
-plot(xMA_200Src and acxMaCizgisi and acxMa200Cizgisi ? xMA_200Src : na , color=xMA_200_Color, linewidth=3, title='xMa200 Çizgisi')
+xMA_200_Plot = plot(xMA_200Src and acxMaCizgisi and acxMa200Cizgisi ? xMA_200Src : na , color=xMA_200_Color, linewidth=3, title='xMa200 Çizgisi')
 
 
 kesAxMA_9 = ta.crossunder(src , xMA_9Src) 
@@ -294,10 +294,62 @@ plot(line2272_2 and acFiboLines and acFlAlt ? line2272_2 : na, title='-1.272', c
 
 
 //BOYAMALAR
-string boyaBir = input.timeframe(defval = "xMA9", title = "Boya Birinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200"] , group="Boyama Bölümü")
-string boyaIki = input.timeframe(defval = "xMA9", title = "Boya İkinci" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200"] , group="Boyama Bölümü")
+acBoyama = input(defval = false, title = 'Boyama Gözüksün mü?', group="Boyama Bölümü")   
 
 
+string boyaBir = input.string(defval = "xMA21", title = "Boya Birinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200"] , group="Boyama Bölümü")
+string boyaIki = input.string(defval = "xMA50", title = "Boya İkinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200"] , group="Boyama Bölümü")
 
+myRenkBir = input.color(color.lime , "Birinci Sınır Renk", group="Boyama Bölümü") 
+myRenkIki = input.color(color.red, "İkinci Sınır Renk", group="Boyama Bölümü") 
+
+float ba1 = switch boyaBir
+	"xMA9" => xMA_9
+	"xMA13" => xMA_13
+	"xMA21" => xMA_21
+	"xMA34" => xMA_34
+	"xMA50" => xMA_50
+	"xMA89" => xMA_89
+	"xMA100" => xMA_100
+	"xMA144" => xMA_144
+	"xMA200" => xMA_200
+
+float ma1 = switch boyaBir
+	"xMA9" => xMA_9Src
+	"xMA13" => xMA_13Src
+	"xMA21" => xMA_21Src
+	"xMA34" => xMA_34Src
+	"xMA50" => xMA_50Src
+	"xMA89" => xMA_89Src
+	"xMA100" => xMA_100Src
+	"xMA144" => xMA_144Src
+	"xMA200" => xMA_200Src
+ilk = plot(acBoyama ? ma1 : na, color = color.new(color.white, 100))
+
+float ba2 = switch boyaIki
+	"xMA9" => xMA_9
+	"xMA13" => xMA_13
+	"xMA21" => xMA_21
+	"xMA34" => xMA_34
+	"xMA50" => xMA_50
+	"xMA89" => xMA_89
+	"xMA100" => xMA_100
+	"xMA144" => xMA_144
+	"xMA200" => xMA_200
+
+float ma2 = switch boyaIki
+	"xMA9" => xMA_9Src
+	"xMA13" => xMA_13Src
+	"xMA21" => xMA_21Src
+	"xMA34" => xMA_34Src
+	"xMA50" => xMA_50Src
+	"xMA89" => xMA_89Src
+	"xMA100" => xMA_100Src
+	"xMA144" => xMA_144Src
+	"xMA200" => xMA_200Src
+son = plot(acBoyama ? ma2 : na, color = color.new(color.white, 100))
+
+myBoya = ba1 >= ba2 ? myRenkBir : myRenkIki
+fill(ilk, son , title = 'Birinci Bölge', color = myBoya, fillgaps = true, transp=75)
 
 //BURADA BİTTİ
