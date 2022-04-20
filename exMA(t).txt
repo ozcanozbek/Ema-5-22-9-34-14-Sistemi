@@ -2,12 +2,12 @@
 // © ozcanozbek
 
 //@version=5
-indicator(title ="exMA(t) - V1.1.03", shorttitle ="exMA(t)", overlay=true, timeframe="", timeframe_gaps=true)
+indicator(title ="exMA(t) - V1.1.04", shorttitle ="exMA(t)", overlay=true, timeframe="", timeframe_gaps=true)
 
 //myClose = request.security(syminfo.tickerid, timeframe.period, close)
 //src = request.security(syminfo.tickerid, timeframe.period, close)
-src = input.source(close, "Kaynak", group="Kaynak Çeşitleri")
 
+src = input.source(close, "Kaynak", group="Kaynak Çeşitleri")
 
 // Fibo Ayarları
 acFiboLines = input(defval = true, title = 'Fibo Yatay Çizgileri Gözüksün mü?', group="Fibo Ayarları")   
@@ -31,15 +31,15 @@ string xMAMum200 = input.timeframe(defval = "Grafik", title = "xMA200 Çalışma
 
 
 // xMA Çizgi ve Kesişmeleri
-string xMaTip9 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA9 tipi", group="xMA9 Değerleri")
-string xMaTip13 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA13 tipi", group="xMA13 Değerleri")
+string xMaTip9 = input.string(defval="SMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA9 tipi", group="xMA9 Değerleri")
+string xMaTip13 = input.string(defval="SMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA13 tipi", group="xMA13 Değerleri")
 string xMaTip21 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA21 tipi", group="xMA21 Değerleri")
-string xMaTip34 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA34 tipi", group="xMA34 Değerleri")
-string xMaTip50 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA50 tipi", group="xMA50 Değerleri")
+string xMaTip34 = input.string(defval="(D)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA34 tipi", group="xMA34 Değerleri")
+string xMaTip50 = input.string(defval="EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA50 tipi", group="xMA50 Değerleri")
 string xMaTip89 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA89 tipi", group="xMA89 Değerleri")
-string xMaTip100 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA100 tipi", group="xMA100 Değerleri")
+string xMaTip100 = input.string(defval="EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA100 tipi", group="xMA100 Değerleri")
 string xMaTip144 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA144 tipi", group="xMA144 Değerleri")
-string xMaTip200 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA200 tipi", group="xMA200 Değerleri")
+string xMaTip200 = input.string(defval="EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA"], title=  "xMA200 tipi", group="xMA200 Değerleri")
 
 
 
@@ -86,7 +86,7 @@ acxMa21Cizgisi = input(defval = true, title = 'xMA21 Çizgisi Gözüksün mü?',
 acxMa34Cizgisi = input(defval = false, title = 'xMA34 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
 acxMa50Cizgisi = input(defval = true, title = 'xMA50 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
 acxMa89Cizgisi = input(defval = false, title = 'xMA89 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
-acxMa100Cizgisi = input(defval = true, title = 'xMA100 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
+acxMa100Cizgisi = input(defval = false, title = 'xMA100 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
 acxMa144Cizgisi = input(defval = false, title = 'xMA144 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
 acxMa200Cizgisi = input(defval = true, title = 'xMA200 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
 
@@ -102,19 +102,19 @@ xMA_200_Color = color.new(#be660b, 0)
 
 
 
-length0a = input(9, 'xMA 9', group="xMA9 Değerleri")
+length0a = input(5, 'xMA 9', group="xMA9 Değerleri")
 xMaMum9Src = xMaMumKontrol(xMAMum9)
 xMA_9 = xMaKontrol(xMaTip9, close, length0a) 
 xMA_9Src = request.security(syminfo.tickerid,xMaMum9Src, xMA_9)
 xMA_9_Plot = plot(xMA_9Src and acxMaCizgisi and acxMa9Cizgisi ? xMA_9Src : na , color=xMA_9_Color, linewidth=3, title='xMa9 Çizgisi')
 
-length1a = input(13, 'xMA 13', group="xMA13 Değerleri")
+length1a = input(21, 'xMA 13', group="xMA13 Değerleri")
 xMaMum13Src = xMaMumKontrol(xMAMum13)
 xMA_13 = xMaKontrol(xMaTip13, close, length1a) 
 xMA_13Src = request.security(syminfo.tickerid,xMaMum13Src, xMA_13)
 xMA_13_Plot = plot(xMA_13Src and acxMaCizgisi and acxMa13Cizgisi ? xMA_13Src : na , color=xMA_13_Color, linewidth=2, title='xMa13 Çizgisi')
 
-length2a = input(21, 'xMA 21', group="xMA21 Değerleri")
+length2a = input(20, 'xMA 21', group="xMA21 Değerleri")
 xMaMum21Src = xMaMumKontrol(xMAMum21)
 xMA_21 = xMaKontrol(xMaTip21, close, length2a) 
 xMA_21Src = request.security(syminfo.tickerid,xMaMum21Src, xMA_21)
@@ -144,17 +144,17 @@ xMA_100 = xMaKontrol(xMaTip100, close, length6a)
 xMA_100Src = request.security(syminfo.tickerid,xMaMum100Src, xMA_100)
 xMA_100_Plot = plot(xMA_100Src and acxMaCizgisi and acxMa100Cizgisi ? xMA_100Src : na , color=xMA_100_Color, linewidth=3, title='xMa100 Çizgisi')
 
-length7a = input(144, 'xMA 144', group="xMA144 Değerleri")
+length7a = input(200, 'xMA 144', group="xMA144 Değerleri")
 xMaMum144Src = xMaMumKontrol(xMAMum144)
 xMA_144 = xMaKontrol(xMaTip144, close, length7a) 
 xMA_144Src = request.security(syminfo.tickerid,xMaMum144Src, xMA_144)
-xMA_144_Plot = plot(xMA_144Src and acxMaCizgisi and acxMa144Cizgisi ? xMA_144Src : na , color=xMA_144_Color, linewidth=3, title='xMa144 Çizgisi')
+xMA_144_Plot = plot(xMA_144Src and acxMaCizgisi and acxMa144Cizgisi ? xMA_144Src : na , color=xMA_144_Color, linewidth=4, title='xMa144 Çizgisi')
 
 length8a = input(200, 'xMA 200', group="xMA200 Değerleri")
 xMaMum200Src = xMaMumKontrol(xMAMum200)
 xMA_200 = xMaKontrol(xMaTip200, close, length8a) 
 xMA_200Src = request.security(syminfo.tickerid,xMaMum200Src, xMA_200)
-xMA_200_Plot = plot(xMA_200Src and acxMaCizgisi and acxMa200Cizgisi ? xMA_200Src : na , color=xMA_200_Color, linewidth=3, title='xMa200 Çizgisi')
+xMA_200_Plot = plot(xMA_200Src and acxMaCizgisi and acxMa200Cizgisi ? xMA_200Src : na , color=xMA_200_Color, linewidth=4, title='xMa200 Çizgisi')
 
 
 kesAxMA_9 = ta.crossunder(src , xMA_9Src) 
@@ -294,14 +294,14 @@ plot(line2272_2 and acFiboLines and acFlAlt ? line2272_2 : na, title='-1.272', c
 
 
 //BOYAMALAR
-acBoyama = input(defval = false, title = 'Boyama Gözüksün mü?', group="Boyama Bölümü")   
+acBoyama = input(defval = true, title = 'Boyama Gözüksün mü?', group="Boyama Bölümü")   
 
 
 string boyaBir = input.string(defval = "xMA21", title = "Boya Birinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200"] , group="Boyama Bölümü")
 string boyaIki = input.string(defval = "xMA50", title = "Boya İkinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200"] , group="Boyama Bölümü")
 
-myRenkBir = input.color(color.lime , "Birinci Sınır Renk", group="Boyama Bölümü") 
-myRenkIki = input.color(color.red, "İkinci Sınır Renk", group="Boyama Bölümü") 
+myRenkBir = input.color(color.new(color.lime, 79) , "Birinci Sınır Renk", group="Boyama Bölümü") 
+myRenkIki = input.color(color.new(color.red, 70), "İkinci Sınır Renk", group="Boyama Bölümü") 
 
 float ba1 = switch boyaBir
 	"xMA9" => xMA_9
