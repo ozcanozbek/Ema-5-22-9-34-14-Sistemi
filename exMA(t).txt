@@ -2,7 +2,7 @@
 // © ozcanozbek
 
 //@version=5
-indicator(title ="exMA(t) - V1.1.04", shorttitle ="exMA(t)", overlay=true, timeframe="", timeframe_gaps=true)
+indicator(title ="exMA(t) - V1.1.05", shorttitle ="exMA(t)", overlay=true, timeframe="", timeframe_gaps=true)
 
 //myClose = request.security(syminfo.tickerid, timeframe.period, close)
 //src = request.security(syminfo.tickerid, timeframe.period, close)
@@ -101,60 +101,81 @@ xMA_144_Color = color.new(color.gray, 0)
 xMA_200_Color = color.new(#be660b, 0)
 
 
+xMA_9_Color_koyu = color.new(color.lime, 50)
+xMA_13_Color_koyu = color.new(color.purple, 50)
+xMA_21_Color_koyu = color.new(color.white, 50)
+xMA_34_Color_koyu = color.new(#00bcd4, 50)
+xMA_50_Color_koyu = color.new(color.yellow, 50)
+xMA_89_Color_koyu = color.new(color.teal, 50)
+xMA_100_Color_koyu = color.new(color.blue, 50)
+xMA_144_Color_koyu = color.new(color.gray, 50)
+xMA_200_Color_koyu = color.new(#be660b, 50)
+
+
 
 length0a = input(5, 'xMA 9', group="xMA9 Değerleri")
 xMaMum9Src = xMaMumKontrol(xMAMum9)
 xMA_9 = xMaKontrol(xMaTip9, close, length0a) 
 xMA_9Src = request.security(syminfo.tickerid,xMaMum9Src, xMA_9)
-xMA_9_Plot = plot(xMA_9Src and acxMaCizgisi and acxMa9Cizgisi ? xMA_9Src : na , color=xMA_9_Color, linewidth=3, title='xMa9 Çizgisi')
+xMA_9_Color_S = xMA_9Src >= xMA_9Src[1] ? xMA_9_Color :xMA_9_Color_koyu
+xMA_9_Plot = plot(xMA_9Src and acxMaCizgisi and acxMa9Cizgisi ? xMA_9Src : na , color=xMA_9_Color_S, linewidth=3, title='xMa9 Çizgisi')
 
 length1a = input(21, 'xMA 13', group="xMA13 Değerleri")
 xMaMum13Src = xMaMumKontrol(xMAMum13)
 xMA_13 = xMaKontrol(xMaTip13, close, length1a) 
 xMA_13Src = request.security(syminfo.tickerid,xMaMum13Src, xMA_13)
-xMA_13_Plot = plot(xMA_13Src and acxMaCizgisi and acxMa13Cizgisi ? xMA_13Src : na , color=xMA_13_Color, linewidth=2, title='xMa13 Çizgisi')
+xMA_13_Color_S = xMA_13Src >= xMA_13Src[1] ? xMA_13_Color :xMA_13_Color_koyu
+xMA_13_Plot = plot(xMA_13Src and acxMaCizgisi and acxMa13Cizgisi ? xMA_13Src : na , color=xMA_13_Color_S, linewidth=2, title='xMa13 Çizgisi')
 
 length2a = input(20, 'xMA 21', group="xMA21 Değerleri")
 xMaMum21Src = xMaMumKontrol(xMAMum21)
 xMA_21 = xMaKontrol(xMaTip21, close, length2a) 
 xMA_21Src = request.security(syminfo.tickerid,xMaMum21Src, xMA_21)
-xMA_21_Plot = plot(xMA_21Src and acxMaCizgisi and acxMa21Cizgisi ? xMA_21Src : na , color=xMA_21_Color , linewidth=3, title='xMa21 Çizgisi')
+xMA_21_Color_S = xMA_21Src >= xMA_21Src[1] ? xMA_21_Color :xMA_21_Color_koyu
+xMA_21_Plot = plot(xMA_21Src and acxMaCizgisi and acxMa21Cizgisi ? xMA_21Src : na , color=xMA_21_Color_S , linewidth=3, title='xMa21 Çizgisi')
+//xMA_21_Plot = plot(xMA_21Src and acxMaCizgisi and acxMa21Cizgisi ? xMA_21Src : na , color=xMA_21_Color , linewidth=3, title='xMa21 Çizgisi')
 
 length3a = input(34, 'xMA 34', group="xMA34 Değerleri")
 xMaMum34Src = xMaMumKontrol(xMAMum34)
 xMA_34 = xMaKontrol(xMaTip34, close, length3a)
 xMA_34Src = request.security(syminfo.tickerid,xMaMum34Src, xMA_34)
-xMA_34_Plot = plot(xMA_34Src and acxMaCizgisi and acxMa34Cizgisi ? xMA_34Src : na , color=xMA_34_Color, linewidth=3, title='xMa34 Çizgisi')
+xMA_34_Color_S = xMA_34Src >= xMA_34Src[1] ? xMA_34_Color :xMA_34_Color_koyu
+xMA_34_Plot = plot(xMA_34Src and acxMaCizgisi and acxMa34Cizgisi ? xMA_34Src : na , color=xMA_34_Color_S, linewidth=3, title='xMa34 Çizgisi')
 
 length4a = input(50, 'xMA 50', group="xMA50 Değerleri")
 xMaMum50Src = xMaMumKontrol(xMAMum50)
 xMA_50 = xMaKontrol(xMaTip50, close, length4a) 
 xMA_50Src = request.security(syminfo.tickerid,xMaMum50Src, xMA_50)
-xMA_50_Plot = plot(xMA_50Src and acxMaCizgisi and acxMa50Cizgisi ? xMA_50Src : na , color=xMA_50_Color, linewidth=3, title='xMa50 Çizgisi')
+xMA_50_Color_S = xMA_50Src >= xMA_50Src[1] ? xMA_50_Color :xMA_50_Color_koyu
+xMA_50_Plot = plot(xMA_50Src and acxMaCizgisi and acxMa50Cizgisi ? xMA_50Src : na , color=xMA_50_Color_S, linewidth=3, title='xMa50 Çizgisi')
 
 length5a = input(89, 'xMA 89', group="xMA89 Değerleri")
 xMaMum89Src = xMaMumKontrol(xMAMum89)
 xMA_89 = xMaKontrol(xMaTip89, close, length5a) 
 xMA_89Src = request.security(syminfo.tickerid,xMaMum89Src, xMA_89)
-xMA_89_Plot = plot(xMA_89Src and acxMaCizgisi and acxMa89Cizgisi ? xMA_89Src : na , color=xMA_89_Color, linewidth=3, title='xMa89 Çizgisi')
+xMA_89_Color_S = xMA_89Src >= xMA_89Src[1] ? xMA_89_Color :xMA_89_Color_koyu
+xMA_89_Plot = plot(xMA_89Src and acxMaCizgisi and acxMa89Cizgisi ? xMA_89Src : na , color=xMA_89_Color_S, linewidth=3, title='xMa89 Çizgisi')
 
 length6a = input(100, 'xMA 100', group="xMA100 Değerleri")
 xMaMum100Src = xMaMumKontrol(xMAMum100)
 xMA_100 = xMaKontrol(xMaTip100, close, length6a) 
 xMA_100Src = request.security(syminfo.tickerid,xMaMum100Src, xMA_100)
-xMA_100_Plot = plot(xMA_100Src and acxMaCizgisi and acxMa100Cizgisi ? xMA_100Src : na , color=xMA_100_Color, linewidth=3, title='xMa100 Çizgisi')
+xMA_100_Color_S = xMA_100Src >= xMA_100Src[1] ? xMA_100_Color :xMA_100_Color_koyu
+xMA_100_Plot = plot(xMA_100Src and acxMaCizgisi and acxMa100Cizgisi ? xMA_100Src : na , color=xMA_100_Color_S, linewidth=3, title='xMa100 Çizgisi')
 
 length7a = input(200, 'xMA 144', group="xMA144 Değerleri")
 xMaMum144Src = xMaMumKontrol(xMAMum144)
 xMA_144 = xMaKontrol(xMaTip144, close, length7a) 
 xMA_144Src = request.security(syminfo.tickerid,xMaMum144Src, xMA_144)
-xMA_144_Plot = plot(xMA_144Src and acxMaCizgisi and acxMa144Cizgisi ? xMA_144Src : na , color=xMA_144_Color, linewidth=4, title='xMa144 Çizgisi')
+xMA_144_Color_S = xMA_144Src >= xMA_144Src[1] ? xMA_144_Color :xMA_144_Color_koyu
+xMA_144_Plot = plot(xMA_144Src and acxMaCizgisi and acxMa144Cizgisi ? xMA_144Src : na , color=xMA_144_Color_S, linewidth=4, title='xMa144 Çizgisi')
 
 length8a = input(200, 'xMA 200', group="xMA200 Değerleri")
 xMaMum200Src = xMaMumKontrol(xMAMum200)
 xMA_200 = xMaKontrol(xMaTip200, close, length8a) 
 xMA_200Src = request.security(syminfo.tickerid,xMaMum200Src, xMA_200)
-xMA_200_Plot = plot(xMA_200Src and acxMaCizgisi and acxMa200Cizgisi ? xMA_200Src : na , color=xMA_200_Color, linewidth=4, title='xMa200 Çizgisi')
+xMA_200_Color_S = xMA_200Src >= xMA_200Src[1] ? xMA_200_Color :xMA_200_Color_koyu
+xMA_200_Plot = plot(xMA_200Src and acxMaCizgisi and acxMa200Cizgisi ? xMA_200Src : na , color=xMA_200_Color_S, linewidth=4, title='xMa200 Çizgisi')
 
 
 kesAxMA_9 = ta.crossunder(src , xMA_9Src) 
