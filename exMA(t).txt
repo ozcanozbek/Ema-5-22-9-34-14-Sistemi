@@ -2,7 +2,7 @@
 // © ozcanozbek
 
 //@version=5
-indicator(title ="exMA(t) - V1.1.05", shorttitle ="exMA(t)", overlay=true, timeframe="", timeframe_gaps=true)
+indicator(title ="exMA(t) - V1.1.06", shorttitle ="exMA(t)", overlay=true, timeframe="", timeframe_gaps=true)
 
 //myClose = request.security(syminfo.tickerid, timeframe.period, close)
 //src = request.security(syminfo.tickerid, timeframe.period, close)
@@ -262,6 +262,71 @@ plotshape(kesYxMA_200 and acxMa200Cizgisi and acxMaKesmeler and acxMaYKesmeler a
 //alertcondition(kesYxMA_200, title="xMA200 YK", message='2S xMA200 YK (200 ü yukarı kesti) {{ticker}}, FİYAT={{close}}')
 //alertcondition(kesYxMA_100 or kesYxMA_200, title="(xMA100 veya xMA200) YK", message='2S xMA100 veya xMA200 YK (100 veya 200 ü yukarı kesti) {{ticker}}, FİYAT={{close}}')
 
+
+
+
+xMaAStyleRenk = shape.diamond
+xMaASizeRenk = size.tiny
+xMaAColorRenk = color.red
+xMaALocationRenk = location.abovebar
+
+xMaYStyleRenk = shape.diamond
+xMaYSizeRenk = size.tiny
+xMaYColorRenk = color.lime
+xMaYLocationRenk = location.belowbar
+
+
+
+acxMaRenkler = input(defval = true, title = 'xMA Renk Değişimi İşaretleri Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+acxMaARenkler = input(defval = true, title = 'xMA Aşağı Renk Değişimi İşaretleri Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+acxMaYRenkler = input(defval = true, title = 'xMA Yukarı Renk Değişimi İşaretleri Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+acxMa9ARenkler = input(defval = false, title = 'xMA9 Aşağı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+acxMa9YRenkler = input(defval = false, title = 'xMA9 Yukarı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+//acxMa13ARenkler = input(defval = false, title = 'xMA13 Aşağı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+//acxMa13YRenkler = input(defval = false, title = 'xMA13 Yukarı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+acxMa21ARenkler = input(defval = false, title = 'xMA21 Aşağı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+acxMa21YRenkler = input(defval = false, title = 'xMA21 Yukarı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+//acxMa34ARenkler = input(defval = false, title = 'xMA34 Aşağı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+//acxMa34YRenkler = input(defval = false, title = 'xMA34 Yukarı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+acxMa50ARenkler = input(defval = false, title = 'xMA50 Aşağı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+acxMa50YRenkler = input(defval = false, title = 'xMA50 Yukarı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+//acxMa89ARenkler = input(defval = false, title = 'xMA89 Aşağı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+//acxMa89YRenkler = input(defval = false, title = 'xMA89 Yukarı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+//acxMa100ARenkler = input(defval = false, title = 'xMA100 Aşağı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+//acxMa100YRenkler = input(defval = false, title = 'xMA100 Yukarı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+//acxMa144ARenkler = input(defval = false, title = 'xMA144 Aşağı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+//acxMa144YRenkler = input(defval = false, title = 'xMA144 Yukarı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+acxMa200ARenkler = input(defval = false, title = 'xMA200 Aşağı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+acxMa200YRenkler = input(defval = false, title = 'xMA200 Yukarı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+
+
+xMA_9_RenkDegisimiA = xMA_9_Color_S != xMA_9_Color_S[1] and xMA_9Src < xMA_9Src[1]
+xMA_9_RenkDegisimiY = xMA_9_Color_S != xMA_9_Color_S[1] and xMA_9Src >= xMA_9Src[1]
+plotshape(xMA_9_RenkDegisimiA and acxMa9Cizgisi and acxMaRenkler and acxMaARenkler and acxMa9ARenkler ? xMA_9_RenkDegisimiA : na , title = 'xMa9 Aşağı Renk Değişimi', text='', style=xMaAStyleRenk , location=xMaALocationRenk, color=xMA_9_Color, offset=0, size=xMaASizeRenk)
+plotshape(xMA_9_RenkDegisimiY and acxMa9Cizgisi and acxMaRenkler and acxMaYRenkler and acxMa9YRenkler ? xMA_9_RenkDegisimiY : na , title = 'xMa9 Yukarı Renk Değişimi', text='', style=xMaYStyleRenk , location=xMaYLocationRenk, color=xMA_9_Color, offset=0, size=xMaYSizeRenk)
+
+//xMA_13_RenkDegisimiA = xMA_13_Color_S != xMA_13_Color_S[1] and xMA_13Src < xMA_13Src[1]
+//xMA_13_RenkDegisimiY = xMA_13_Color_S != xMA_13_Color_S[1] and xMA_13Src >= xMA_13Src[1]
+//plotshape(xMA_13_RenkDegisimiA and acxMa13Cizgisi and acxMaRenkler and acxMaARenkler and acxMa13ARenkler ? xMA_13_RenkDegisimiA : na , title = 'xMa13 Aşağı Renk Değişimi', text='', style=xMaAStyleRenk , location=xMaALocationRenk, color=xMA_13_Color, offset=0, size=xMaASizeRenk)
+//plotshape(xMA_13_RenkDegisimiY and acxMa13Cizgisi and acxMaRenkler and acxMaYRenkler and acxMa13YRenkler ? xMA_13_RenkDegisimiY : na , title = 'xMa13 Yukarı Renk Değişimi', text='', style=xMaYStyleRenk , location=xMaYLocationRenk, color=xMA_13_Color, offset=0, size=xMaYSizeRenk)
+
+
+xMA_21_RenkDegisimiA = xMA_21_Color_S != xMA_21_Color_S[1] and xMA_21Src < xMA_21Src[1]
+xMA_21_RenkDegisimiY = xMA_21_Color_S != xMA_21_Color_S[1] and xMA_21Src >= xMA_21Src[1]
+plotshape(xMA_21_RenkDegisimiA and acxMa21Cizgisi and acxMaRenkler and acxMaARenkler and acxMa21ARenkler ? xMA_21_RenkDegisimiA : na , title = 'xMa21 Aşağı Renk Değişimi', text='', style=xMaAStyleRenk , location=xMaALocationRenk, color=xMA_21_Color, offset=0, size=xMaASizeRenk)
+plotshape(xMA_21_RenkDegisimiY and acxMa21Cizgisi and acxMaRenkler and acxMaYRenkler and acxMa21YRenkler ? xMA_21_RenkDegisimiY : na , title = 'xMa21 Yukarı Renk Değişimi', text='', style=xMaYStyleRenk , location=xMaYLocationRenk, color=xMA_21_Color, offset=0, size=xMaYSizeRenk)
+
+
+xMA_50_RenkDegisimiA = xMA_50_Color_S != xMA_50_Color_S[1] and xMA_50Src < xMA_50Src[1]
+xMA_50_RenkDegisimiY = xMA_50_Color_S != xMA_50_Color_S[1] and xMA_50Src >= xMA_50Src[1]
+plotshape(xMA_50_RenkDegisimiA and acxMa50Cizgisi and acxMaRenkler and acxMaARenkler and acxMa50ARenkler ? xMA_50_RenkDegisimiA : na , title = 'xMa50 Aşağı Renk Değişimi', text='', style=xMaAStyleRenk , location=xMaALocationRenk, color=xMA_50_Color, offset=0, size=xMaASizeRenk)
+plotshape(xMA_50_RenkDegisimiY and acxMa50Cizgisi and acxMaRenkler and acxMaYRenkler and acxMa50YRenkler ? xMA_50_RenkDegisimiY : na , title = 'xMa50 Yukarı Renk Değişimi', text='', style=xMaYStyleRenk , location=xMaYLocationRenk, color=xMA_50_Color, offset=0, size=xMaYSizeRenk)
+
+
+xMA_200_RenkDegisimiA = xMA_200_Color_S != xMA_200_Color_S[1] and xMA_200Src < xMA_200Src[1]
+xMA_200_RenkDegisimiY = xMA_200_Color_S != xMA_200_Color_S[1] and xMA_200Src >= xMA_200Src[1]
+plotshape(xMA_200_RenkDegisimiA and acxMa200Cizgisi and acxMaRenkler and acxMaARenkler and acxMa200ARenkler ? xMA_200_RenkDegisimiA : na , title = 'xMa200 Aşağı Renk Değişimi', text='', style=xMaAStyleRenk , location=xMaALocationRenk, color=xMA_200_Color, offset=0, size=xMaASizeRenk)
+plotshape(xMA_200_RenkDegisimiY and acxMa200Cizgisi and acxMaRenkler and acxMaYRenkler and acxMa200YRenkler ? xMA_200_RenkDegisimiY : na , title = 'xMa200 Yukarı Renk Değişimi', text='', style=xMaYStyleRenk , location=xMaYLocationRenk, color=xMA_200_Color, offset=0, size=xMaYSizeRenk)
 
 
 
