@@ -34,7 +34,7 @@ string xMAMum200 = input.timeframe(defval = "Grafik", title = "xMA200 Çalışma
 string xMaTip9 = input.string(defval="SMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA9 tipi", group="xMA9 Değerleri")
 string xMaTip13 = input.string(defval="SMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA13 tipi", group="xMA13 Değerleri")
 string xMaTip21 = input.string(defval="EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA21 tipi", group="xMA21 Değerleri")
-string xMaTip34 = input.string(defval="(D)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA34 tipi", group="xMA34 Değerleri")
+string xMaTip34 = input.string(defval="EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA34 tipi", group="xMA34 Değerleri")
 string xMaTip50 = input.string(defval="EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA50 tipi", group="xMA50 Değerleri")
 string xMaTip89 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA89 tipi", group="xMA89 Değerleri")
 string xMaTip100 = input.string(defval="EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA100 tipi", group="xMA100 Değerleri")
@@ -84,7 +84,7 @@ acxMaCizgisi = input(defval = true, title = 'xMA Çizgileri Gözüksün mü?', g
 acxMa9Cizgisi = input(defval = false, title = 'xMA9 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
 acxMa13Cizgisi = input(defval = false, title = 'xMA13 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
 acxMa21Cizgisi = input(defval = true, title = 'xMA21 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
-acxMa34Cizgisi = input(defval = false, title = 'xMA34 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
+acxMa34Cizgisi = input(defval = true, title = 'xMA34 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
 acxMa50Cizgisi = input(defval = true, title = 'xMA50 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
 acxMa89Cizgisi = input(defval = false, title = 'xMA89 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
 acxMa100Cizgisi = input(defval = false, title = 'xMA100 Çizgisi Gözüksün mü?', group="xMA Çizgileri")   
@@ -104,13 +104,13 @@ xMA_200_Color = color.new(#be660b, 0)
 
 xMA_9_Color_koyu = color.new(color.lime, 50)
 xMA_13_Color_koyu = color.new(color.purple, 50)
-xMA_21_Color_koyu = color.new(color.white, 50)
-xMA_34_Color_koyu = color.new(#00bcd4, 50)
-xMA_50_Color_koyu = color.new(color.yellow, 50)
+xMA_21_Color_koyu = color.new(color.white, 10)
+xMA_34_Color_koyu = color.new(#00bcd4, 10)
+xMA_50_Color_koyu = color.new(color.yellow, 10)
 xMA_89_Color_koyu = color.new(color.teal, 50)
 xMA_100_Color_koyu = color.new(color.blue, 50)
 xMA_144_Color_koyu = color.new(color.gray, 50)
-xMA_200_Color_koyu = color.new(#be660b, 50)
+xMA_200_Color_koyu = color.new(#be660b, 10)
 
 
 
@@ -221,8 +221,8 @@ acxMa13AKesmeler = input(defval = false, title = 'xMA13 Aşağı Kesme İşareti
 acxMa13YKesmeler = input(defval = false, title = 'xMA13 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
 acxMa21AKesmeler = input(defval = false, title = 'xMA21 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
 acxMa21YKesmeler = input(defval = false, title = 'xMA21 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
-acxMa34AKesmeler = input(defval = false, title = 'xMA34 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
-acxMa34YKesmeler = input(defval = false, title = 'xMA34 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa34AKesmeler = input(defval = true, title = 'xMA34 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+acxMa34YKesmeler = input(defval = true, title = 'xMA34 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
 acxMa50AKesmeler = input(defval = false, title = 'xMA50 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
 acxMa50YKesmeler = input(defval = false, title = 'xMA50 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
 acxMa89AKesmeler = input(defval = false, title = 'xMA89 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
@@ -384,11 +384,11 @@ plot(line2272_2 and acFiboLines and acFlAlt ? line2272_2 : na, title='-1.272', c
 
 acBoyama = input(defval = true, title = 'Boyama Gözüksün mü?', group="Boyama Bölümü")   
 
-string boyaBir = input.string(defval = "xMA21", title = "Boya Birinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200","xMum"] , group="Boyama Bölümü")
-string boyaIki = input.string(defval = "xMA50", title = "Boya İkinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200","xMum"] , group="Boyama Bölümü")
+string boyaBir = input.string(defval = "xMum", title = "Boya Birinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200","xMum"] , group="Boyama Bölümü")
+string boyaIki = input.string(defval = "xMA21", title = "Boya İkinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200","xMum"] , group="Boyama Bölümü")
 
-myRenkBir = input.color(color.new(color.lime, 79) , "Birinci Sınır Renk", group="Boyama Bölümü") 
-myRenkIki = input.color(color.new(color.red, 70), "İkinci Sınır Renk", group="Boyama Bölümü") 
+myRenkBir = input.color(color.new(color.lime, 50) , "Birinci Sınır Renk", group="Boyama Bölümü") 
+myRenkIki = input.color(color.new(color.red, 50), "İkinci Sınır Renk", group="Boyama Bölümü") 
 
 float ba1 = switch boyaBir
 	"xMA9" => xMA_9
@@ -449,10 +449,10 @@ fill(ilk, son , title = 'Birinci Bölge', color = myBoya, fillgaps = true, trans
 
 //BOYAMALAR 2
 
-acBoyama2 = input(defval = false, title = 'Boyama Gözüksün mü?', group="2. Boyama Bölümü")   
+acBoyama2 = input(defval = true, title = 'Boyama Gözüksün mü?', group="2. Boyama Bölümü")   
 
 string boyaBir2 = input.string(defval = "xMA50", title = "Boya Birinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200","xMum"] , group="2. Boyama Bölümü")
-string boyaIki2 = input.string(defval = "xMA100", title = "Boya İkinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200","xMum"] , group="2. Boyama Bölümü")
+string boyaIki2 = input.string(defval = "xMA200", title = "Boya İkinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200","xMum"] , group="2. Boyama Bölümü")
 
 myRenkBir2 = input.color(color.new(color.lime, 79) , "Birinci Sınır Renk", group="2. Boyama Bölümü") 
 myRenkIki2 = input.color(color.new(color.red, 70), "İkinci Sınır Renk", group="2. Boyama Bölümü") 
