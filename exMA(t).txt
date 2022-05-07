@@ -511,7 +511,7 @@ son2 = plot(acBoyama2 and acxMaCizgisi ? ma22 : na, color = color.new(color.whit
 
 //myBoya = acBoyama ? ba1 >= ba2 ? myRenkBir : myRenkIki : color.new(color.white, 100)
 myBoya2 = ba12 >= ba22 ? myRenkBir2 : myRenkIki2 
-fill(ilk2, son2 , title = 'İkinci Bölge', color = myBoya, fillgaps = true, transp=75)
+fill(ilk2, son2 , title = 'İkinci Bölge', color = myBoya2, fillgaps = true, transp=75)
 
 
 //BURADA BİTTİ
