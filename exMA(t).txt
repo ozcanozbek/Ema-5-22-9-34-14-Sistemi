@@ -33,7 +33,7 @@ string xMAMum200 = input.timeframe(defval = "Grafik", title = "xMA200 Çalışma
 // xMA Çizgi ve Kesişmeleri
 string xMaTip9 = input.string(defval="SMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA9 tipi", group="xMA9 Değerleri")
 string xMaTip13 = input.string(defval="SMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA13 tipi", group="xMA13 Değerleri")
-string xMaTip21 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA21 tipi", group="xMA21 Değerleri")
+string xMaTip21 = input.string(defval="EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA21 tipi", group="xMA21 Değerleri")
 string xMaTip34 = input.string(defval="(D)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA34 tipi", group="xMA34 Değerleri")
 string xMaTip50 = input.string(defval="EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA50 tipi", group="xMA50 Değerleri")
 string xMaTip89 = input.string(defval="(T)EMA", options = ["EMA", "(D)EMA", "(T)EMA", "SMA", "HMA", "RMA", "WMA", "VWMA"], title=  "xMA89 tipi", group="xMA89 Değerleri")
@@ -229,8 +229,8 @@ acxMa89AKesmeler = input(defval = false, title = 'xMA89 Aşağı Kesme İşareti
 acxMa89YKesmeler = input(defval = false, title = 'xMA89 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
 acxMa100AKesmeler = input(defval = false, title = 'xMA100 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
 acxMa100YKesmeler = input(defval = false, title = 'xMA100 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
-acxMa144AKesmeler = input(defval = false, title = 'xMA144 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
-acxMa144YKesmeler = input(defval = false, title = 'xMA144 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+///acxMa144AKesmeler = input(defval = false, title = 'xMA144 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
+///acxMa144YKesmeler = input(defval = false, title = 'xMA144 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
 acxMa200AKesmeler = input(defval = false, title = 'xMA200 Aşağı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
 acxMa200YKesmeler = input(defval = false, title = 'xMA200 Yukarı Kesme İşareti Gözüksün mü?', group="xMA Kesme İşaretleri")   
 
@@ -243,7 +243,7 @@ plotshape(kesAxMA_34 and acxMa34Cizgisi and acxMaKesmeler and acxMaAKesmeler and
 plotshape(kesAxMA_89 and acxMa89Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa89AKesmeler ? kesAxMA_89 : na ,title ='xMa89 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_89_Color, offset=0, size=xMaASize)
 plotshape(kesAxMA_100 and acxMa100Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa100AKesmeler ? kesAxMA_100 : na ,title ='xMa100 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_100_Color, offset=0, size=xMaASize)
 //alertcondition(kesAxMA_100, title="xMA100 AK", message='2S xMA100 AK (100 ü aşağı kesti) {{ticker}}, FİYAT={{close}}')
-plotshape(kesAxMA_144 and acxMa144Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa144AKesmeler ? kesAxMA_144 : na ,title ='xMa144 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_144_Color, offset=0, size=xMaASize)
+///plotshape(kesAxMA_144 and acxMa144Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa144AKesmeler ? kesAxMA_144 : na ,title ='xMa144 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_144_Color, offset=0, size=xMaASize)
 plotshape(kesAxMA_200 and acxMa200Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa200AKesmeler ? kesAxMA_200 : na ,title ='xMa200 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_200_Color, offset=0, size=xMaASize)
 //alertcondition(kesAxMA_200, title="xMA200 AK", message='2S xMA200 AK (200 ü aşağı kesti) {{ticker}}, FİYAT={{close}}')
 plotshape(kesAxMA_50 and acxMa50Cizgisi and acxMaKesmeler and acxMaAKesmeler and acxMa50AKesmeler ? kesAxMA_50 : na ,title ='xMa50 Aşağı Kes', text='', style=xMaAStyle , location=xMaALocation, color=xMA_50_Color, offset=0, size=xMaASize)
@@ -258,7 +258,7 @@ plotshape(kesYxMA_50 and acxMa50Cizgisi  and acxMaKesmeler and acxMaYKesmeler an
 plotshape(kesYxMA_89 and acxMa89Cizgisi  and acxMaKesmeler and acxMaYKesmeler and acxMa89YKesmeler ? kesYxMA_89 : na ,title ='xMa89 Yukarı Kes', text='', style=xMaYStyle , location=xMaYLocation, color=xMA_89_Color, offset=0, size=xMaYSize)
 plotshape(kesYxMA_100 and acxMa100Cizgisi  and acxMaKesmeler and acxMaYKesmeler and acxMa100YKesmeler ? kesYxMA_100 : na ,title ='xMa100 Yukarı Kes', text='', style=xMaYStyle , location=xMaYLocation, color=xMA_100_Color, offset=0, size=xMaYSize)
 //alertcondition(kesYxMA_100, title="xMA100 YK", message='2S xMA100 YK (100 ü yukarı kesti) {{ticker}}, FİYAT={{close}}')
-plotshape(kesYxMA_144 and acxMa144Cizgisi and acxMaKesmeler and acxMaYKesmeler and acxMa144YKesmeler ? kesYxMA_144  : na ,title ='xMa144 Yukarı Kes', text='', style=xMaYStyle , location=xMaYLocation, color=xMA_144_Color, offset=0, size=xMaYSize)
+///plotshape(kesYxMA_144 and acxMa144Cizgisi and acxMaKesmeler and acxMaYKesmeler and acxMa144YKesmeler ? kesYxMA_144  : na ,title ='xMa144 Yukarı Kes', text='', style=xMaYStyle , location=xMaYLocation, color=xMA_144_Color, offset=0, size=xMaYSize)
 plotshape(kesYxMA_200 and acxMa200Cizgisi and acxMaKesmeler and acxMaYKesmeler and acxMa200YKesmeler ? kesYxMA_200 : na ,title ='xMa200 Yukarı Kes', text='', style=xMaYStyle , location=xMaYLocation, color=xMA_200_Color, offset=0, size=xMaYSize)
 //alertcondition(kesYxMA_200, title="xMA200 YK", message='2S xMA200 YK (200 ü yukarı kesti) {{ticker}}, FİYAT={{close}}')
 //alertcondition(kesYxMA_100 or kesYxMA_200, title="(xMA100 veya xMA200) YK", message='2S xMA100 veya xMA200 YK (100 veya 200 ü yukarı kesti) {{ticker}}, FİYAT={{close}}')
@@ -281,8 +281,8 @@ xMaYLocationRenk = location.belowbar
 acxMaRenkler = input(defval = true, title = 'xMA Renk Değişimi İşaretleri Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
 acxMaARenkler = input(defval = true, title = 'xMA Aşağı Renk Değişimi İşaretleri Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
 acxMaYRenkler = input(defval = true, title = 'xMA Yukarı Renk Değişimi İşaretleri Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
-acxMa9ARenkler = input(defval = false, title = 'xMA9 Aşağı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
-acxMa9YRenkler = input(defval = false, title = 'xMA9 Yukarı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+//acxMa9ARenkler = input(defval = false, title = 'xMA9 Aşağı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
+//acxMa9YRenkler = input(defval = false, title = 'xMA9 Yukarı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
 //acxMa13ARenkler = input(defval = false, title = 'xMA13 Aşağı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
 //acxMa13YRenkler = input(defval = false, title = 'xMA13 Yukarı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
 acxMa21ARenkler = input(defval = false, title = 'xMA21 Aşağı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
@@ -301,10 +301,10 @@ acxMa200ARenkler = input(defval = false, title = 'xMA200 Aşağı Renk Değişim
 acxMa200YRenkler = input(defval = false, title = 'xMA200 Yukarı Renk Değişimi İşareti Gözüksün mü?', group="xMA Renk Değişimi İşaretleri")   
 
 
-xMA_9_RenkDegisimiA = xMA_9_Color_S != xMA_9_Color_S[1] and xMA_9Src < xMA_9Src[1]
-xMA_9_RenkDegisimiY = xMA_9_Color_S != xMA_9_Color_S[1] and xMA_9Src >= xMA_9Src[1]
-plotshape(xMA_9_RenkDegisimiA and acxMa9Cizgisi and acxMaRenkler and acxMaARenkler and acxMa9ARenkler ? xMA_9_RenkDegisimiA : na , title = 'xMa9 Aşağı Renk Değişimi', text='', style=xMaAStyleRenk , location=xMaALocationRenk, color=xMA_9_Color, offset=0, size=xMaASizeRenk)
-plotshape(xMA_9_RenkDegisimiY and acxMa9Cizgisi and acxMaRenkler and acxMaYRenkler and acxMa9YRenkler ? xMA_9_RenkDegisimiY : na , title = 'xMa9 Yukarı Renk Değişimi', text='', style=xMaYStyleRenk , location=xMaYLocationRenk, color=xMA_9_Color, offset=0, size=xMaYSizeRenk)
+//xMA_9_RenkDegisimiA = xMA_9_Color_S != xMA_9_Color_S[1] and xMA_9Src < xMA_9Src[1]
+//xMA_9_RenkDegisimiY = xMA_9_Color_S != xMA_9_Color_S[1] and xMA_9Src >= xMA_9Src[1]
+//plotshape(xMA_9_RenkDegisimiA and acxMa9Cizgisi and acxMaRenkler and acxMaARenkler and acxMa9ARenkler ? xMA_9_RenkDegisimiA : na , title = 'xMa9 Aşağı Renk Değişimi', text='', style=xMaAStyleRenk , location=xMaALocationRenk, color=xMA_9_Color, offset=0, size=xMaASizeRenk)
+//plotshape(xMA_9_RenkDegisimiY and acxMa9Cizgisi and acxMaRenkler and acxMaYRenkler and acxMa9YRenkler ? xMA_9_RenkDegisimiY : na , title = 'xMa9 Yukarı Renk Değişimi', text='', style=xMaYStyleRenk , location=xMaYLocationRenk, color=xMA_9_Color, offset=0, size=xMaYSizeRenk)
 
 //xMA_13_RenkDegisimiA = xMA_13_Color_S != xMA_13_Color_S[1] and xMA_13Src < xMA_13Src[1]
 //xMA_13_RenkDegisimiY = xMA_13_Color_S != xMA_13_Color_S[1] and xMA_13Src >= xMA_13Src[1]
@@ -380,9 +380,9 @@ plot(line2272_2 and acFiboLines and acFlAlt ? line2272_2 : na, title='-1.272', c
 
 
 
-//BOYAMALAR
-acBoyama = input(defval = true, title = 'Boyama Gözüksün mü?', group="Boyama Bölümü")   
+//BOYAMALAR 1
 
+acBoyama = input(defval = true, title = 'Boyama Gözüksün mü?', group="Boyama Bölümü")   
 
 string boyaBir = input.string(defval = "xMA21", title = "Boya Birinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200","xMum"] , group="Boyama Bölümü")
 string boyaIki = input.string(defval = "xMA50", title = "Boya İkinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200","xMum"] , group="Boyama Bölümü")
@@ -445,5 +445,73 @@ son = plot(acBoyama and acxMaCizgisi ? ma2 : na, color = color.new(color.white, 
 //myBoya = acBoyama ? ba1 >= ba2 ? myRenkBir : myRenkIki : color.new(color.white, 100)
 myBoya = ba1 >= ba2 ? myRenkBir : myRenkIki 
 fill(ilk, son , title = 'Birinci Bölge', color = myBoya, fillgaps = true, transp=75)
+
+
+//BOYAMALAR 2
+
+acBoyama2 = input(defval = false, title = 'Boyama Gözüksün mü?', group="2. Boyama Bölümü")   
+
+string boyaBir2 = input.string(defval = "xMA50", title = "Boya Birinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200","xMum"] , group="2. Boyama Bölümü")
+string boyaIki2 = input.string(defval = "xMA100", title = "Boya İkinci Sınır" ,options=["xMA9", "xMA13", "xMA21", "xMA34", "xMA50", "xMA89", "xMA100", "xMA144", "xMA200","xMum"] , group="2. Boyama Bölümü")
+
+myRenkBir2 = input.color(color.new(color.lime, 79) , "Birinci Sınır Renk", group="2. Boyama Bölümü") 
+myRenkIki2 = input.color(color.new(color.red, 70), "İkinci Sınır Renk", group="2. Boyama Bölümü") 
+
+float ba12 = switch boyaBir2
+	"xMA9" => xMA_9
+	"xMA13" => xMA_13
+	"xMA21" => xMA_21
+	"xMA34" => xMA_34
+	"xMA50" => xMA_50
+	"xMA89" => xMA_89
+	"xMA100" => xMA_100
+	"xMA144" => xMA_144
+	"xMA200" => xMA_200
+	"xMum" => close
+
+float ma12 = switch boyaBir2
+	"xMA9" => xMA_9Src
+	"xMA13" => xMA_13Src
+	"xMA21" => xMA_21Src
+	"xMA34" => xMA_34Src
+	"xMA50" => xMA_50Src
+	"xMA89" => xMA_89Src
+	"xMA100" => xMA_100Src
+	"xMA144" => xMA_144Src
+	"xMA200" => xMA_200Src
+	"xMum" => close
+	
+ilk2 = plot(acBoyama2 and acxMaCizgisi ? ma12 : na, color = color.new(color.white, 100))
+
+float ba22 = switch boyaIki2
+	"xMA9" => xMA_9
+	"xMA13" => xMA_13
+	"xMA21" => xMA_21
+	"xMA34" => xMA_34
+	"xMA50" => xMA_50
+	"xMA89" => xMA_89
+	"xMA100" => xMA_100
+	"xMA144" => xMA_144
+	"xMA200" => xMA_200
+	"xMum" => close
+
+float ma22 = switch boyaIki2
+	"xMA9" => xMA_9Src
+	"xMA13" => xMA_13Src
+	"xMA21" => xMA_21Src
+	"xMA34" => xMA_34Src
+	"xMA50" => xMA_50Src
+	"xMA89" => xMA_89Src
+	"xMA100" => xMA_100Src
+	"xMA144" => xMA_144Src
+	"xMA200" => xMA_200Src
+	"xMum" => close
+
+son2 = plot(acBoyama2 and acxMaCizgisi ? ma22 : na, color = color.new(color.white, 100))
+
+//myBoya = acBoyama ? ba1 >= ba2 ? myRenkBir : myRenkIki : color.new(color.white, 100)
+myBoya2 = ba12 >= ba22 ? myRenkBir2 : myRenkIki2 
+fill(ilk2, son2 , title = 'İkinci Bölge', color = myBoya, fillgaps = true, transp=75)
+
 
 //BURADA BİTTİ
